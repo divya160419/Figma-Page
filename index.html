@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Design Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --pink: #FF2D55;
+            --blue: #00CCFF;
+            --purple: #7B68EE;
+            --white: #FFFFFF;
+            --dark: #1E1E2E;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 1;
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--pink), var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleGlow 3s ease infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 45, 85, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(0, 204, 255, 0.7); }
+        }
+
+        .login-form {
+            margin-bottom: 2rem;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .login-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(0, 204, 255, 0.3);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 45, 85, 0.4);
+        }
+
+        .workflow-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .workflow-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .workflow-btn i {
+            font-size: 1.2rem;
+        }
+
+        .design-btn { background: var(--pink); color: white; }
+        .draw-btn { background: var(--purple); color: white; }
+        .build-btn { background: var(--blue); color: var(--dark); }
+        .publish-btn { background: #FFD166; color: var(--dark); }
+        .promote-btn { background: #06D6A0; color: var(--dark); }
+
+        .workflow-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .info-content {
+            background: var(--dark);
+            padding: 2rem;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .info-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .info-image {
+            width: 100%;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--pink);
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background: var(--blue);
+        }
+
+        .feature-list {
+            text-align: left;
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "•";
+            color: var(--blue);
+            font-size: 1.5rem;
+            position: absolute;
+            left: -1.2rem;
+            top: -0.3rem;
+        }
+
+        @media (max-width: 600px) {
+            .main-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .workflow-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="Figma-Free-Plan.png" 
+         alt="Figma Background" class="background-image">
+
+    <div class="main-container">
+        <h1 class="welcome-title">Welcome to Figma</h1>
+        
+        <div class="login-form">
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button class="login-btn">Login</button>
+        </div>
+        
+        <div class="workflow-buttons">
+            <button class="workflow-btn design-btn" onclick="openInfo('design')">
+                <i class="fas fa-palette"></i> Design
+            </button>
+            <button class="workflow-btn draw-btn" onclick="openInfo('draw')">
+                <i class="fas fa-pencil-alt"></i> Draw
+            </button>
+            <button class="workflow-btn build-btn" onclick="openInfo('build')">
+                <i class="fas fa-code"></i> Build
+            </button>
+            <button class="workflow-btn publish-btn" onclick="openInfo('publish')">
+                <i class="fas fa-rocket"></i> Publish
+            </button>
+            <button class="workflow-btn promote-btn" onclick="openInfo('promote')">
+                <i class="fas fa-bullhorn"></i> Promote
+            </button>
+        </div>
+    </div>
+
+    <!-- Design Info Section -->
+    <div id="design-info" class="info-section">
+        <div class="info-content">
+            <button class="close-btn" onclick="closeInfo()">&times;</button>
+            <h2><i class="fas fa-palette"></i> Design Tools</h2>
+            <img src="design.jpeg" alt="Figma Design" class="info-image">
+            <p>Create beautiful interfaces with Figma's powerful design tools. Collaborate in real-time with your team.</p>
+            <ul class="feature-list">
+                <li>Vector networks for precise design</li>
+                <li>Auto layout for responsive components</li>
+                <li>Prototyping with animations</li>
+                <li>Hundreds of plugins available</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Draw Info Section -->
+    <div id="draw-info" class="info-section">
+        <div class="info-content">
+            <button class="close-btn" onclick="closeInfo()">&times;</button>
+            <h2><i class="fas fa-pencil-alt"></i> Drawing Tools</h2>
+            <img src="download.jpeg" alt="Figma Drawing" class="info-image">
+            <p>Use Figma's advanced drawing tools to sketch your ideas with precision.</p>
+            <ul class="feature-list">
+                <li>Pressure-sensitive pen support</li>
+                <li>Smooth vector editing</li>
+                <li>Customizable brushes</li>
+                <li>Symmetry and ruler tools</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Build Info Section -->
+    <div id="build-info" class="info-section">
+        <div class="info-content">
+            <button class="close-btn" onclick="closeInfo()">&times;</button>
+            <h2><i class="fas fa-code"></i> Build with Code</h2>
+            <img src="build.jpeg" alt="Figma to Code" class="info-image">
+            <p>Convert your designs to clean, production-ready code.</p>
+            <ul class="feature-list">
+                <li>Export CSS, Swift, or Android XML</li>
+                <li>Developer handoff features</li>
+                <li>Design system documentation</li>
+                <li>Auto-generated specs</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Publish Info Section -->
+    <div id="publish-info" class="info-section">
+        <div class="info-content">
+            <button class="close-btn" onclick="closeInfo()">&times;</button>
+            <h2><i class="fas fa-rocket"></i> Publish Your Work</h2>
+            <img src="publish.jpeg" alt="Figma Publishing" class="info-image">
+            <p>Share your designs with stakeholders or publish them directly.</p>
+            <ul class="feature-list">
+                <li>Shareable links with permissions</li>
+                <li>Version history</li>
+                <li>Embeddable prototypes</li>
+                <li>Presentation mode</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Promote Info Section -->
+    <div id="promote-info" class="info-section">
+        <div class="info-content">
+            <button class="close-btn" onclick="closeInfo()">&times;</button>
+            <h2><i class="fas fa-bullhorn"></i> Promote Your Designs</h2>
+            <img src="promote.jpeg" alt="Figma Promotion" class="info-image">
+            <p>Showcase your work with stunning presentations.</p>
+            <ul class="feature-list">
+                <li>Interactive prototypes</li>
+                <li>Design portfolios</li>
+                <li>User testing integration</li>
+                <li>Feedback collection</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function openInfo(section) {
+            document.getElementById(section + '-info').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeInfo() {
+            document.querySelectorAll('.info-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close when clicking outside content
+        document.querySelectorAll('.info-section').forEach(section => {
+            section.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeInfo();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
